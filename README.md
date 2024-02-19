@@ -20,13 +20,13 @@ input = sys.stdin.readline
 
 def bt(dice_idx, pieces_loc, score):
     global ans
-    
+
     # 마지막 주사위까지 체크한 경우면 답 갱신
     if dice_idx == 10:
         if score > ans:
             ans = score
         return
-    
+
     # 말 하나씩 확인
     for i in range(4):
         line, location = pieces_loc[i]
@@ -53,7 +53,7 @@ def bt(dice_idx, pieces_loc, score):
                     location = 0
 
         tmp_line, tmp_loc = pieces_loc[i]
-        
+
         # 도착점에 도착한경우거나 이동하려는곳에 말이 없는경우 백트래킹 탐색
         if location > len(dice_field[line])-1:
             pieces_loc[i] = (6, 0)
@@ -62,7 +62,7 @@ def bt(dice_idx, pieces_loc, score):
         elif (line, location) not in pieces_loc:
             pieces_loc[i] = (line, location)
             bt(dice_idx+1, pieces_loc, score+dice_field[line][location])
-        
+
         # 이동한 말 백트래킹 위해서 원래 위치로 복구
         pieces_loc[i] = tmp_line, tmp_loc
 
@@ -120,7 +120,6 @@ print(ans)
 ```
 
 <br/>
-
 
 </details>
 
@@ -180,7 +179,23 @@ print(cnt)
 ### [상미](./점수%20뽑기/상미.py)
 
 ```py
+import sys
+input = sys.stdin.readline
 
+N, K = map(int, input().split())
+score = []
+for i in range(4):
+    score.append(list(map(int, input().split())))
+scoreA = {}
+for i in score[0]:
+    for j in score[1]:
+        scoreA[i+j] = scoreA.get(i+j, 0) + 1
+cnt = 0
+for i in score[2]:
+    for j in score[3]:
+        if K-(i+j) in scoreA:
+            cnt += scoreA[K-(i+j)]
+print(cnt)
 
 ```
 
@@ -219,8 +234,6 @@ print(cnt)
 
 
 ```
-
-
 
 ## [최소 개수의 막대기](https://www.codetree.ai/problems/the-minimum-number-of-rods/description)
 
@@ -381,7 +394,7 @@ dp
 
 N, S = map(int, input().split())
 coins = [tuple(map(int, input().split())) for _ in range(N)]
-dp = [5_001] * (S+1) 
+dp = [5_001] * (S+1)
 dp[0] = 0
 
 for v, a in coins:
@@ -413,6 +426,5 @@ else:
 
 <details markdown="1">
 <summary>접기/펼치기</summary>
-
 
 </details>
